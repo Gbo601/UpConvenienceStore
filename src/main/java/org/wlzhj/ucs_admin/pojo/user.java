@@ -7,4 +7,5 @@ package org.wlzhj.ucs_admin.pojo;
  * @Description: TODO
  */
 public class user {
+    private int id;
 }
