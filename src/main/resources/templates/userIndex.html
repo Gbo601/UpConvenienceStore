@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="主页" />
+	<meta property="og:title" content="主页" />
+	<meta property="og:description" content="主页" />
+	<meta property="og:image" content="https://dompet.dexignlab.com/xhtml/social-image.png" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>主页</title>
+
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+
+	<link href="vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+	<link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+	<!-- Style css -->
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body>
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+		<!--**********************************
+            Header start
+        ***********************************-->
+		<div th:insert="userCommons::Header(headName='主页')"></div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+		<div th:insert="userCommons::Sidebar"></div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <!-- row -->
+			<div class="container-fluid">
+				<div class="row page-titles">
+
+				</div>
+
+				<div class="row" >
+					<div class="col-xl-3">
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="card">
+									<div class="card-header border-0 pb-0">
+										<div>
+											<h4 class="card-title mb-2">销量榜</h4>
+										</div>
+									</div>
+									<div class="card-body">
+										<!--									<canvas id="polarChart" class="maxh250"></canvas>-->
+										<ul class="card-list mt-4">
+											<li><span class="bg-blue circle"></span>Account<span>20%</span></li>
+											<li><span class="bg-success circle"></span>Services<span>40%</span></li>
+											<li><span class="bg-warning circle"></span>Restaurant<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-6">
+						<div class="card">
+							<div class="card-body p-4">
+								<h4 class="card-intro-title"></h4>
+								<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+									<div class="carousel-indicators">
+										<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+										<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+										<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+									</div>
+									<div class="carousel-inner">
+										<div class="carousel-item active">
+											<img class="d-block w-100" src="images/big/img1.jpg" alt="First slide">
+										</div>
+										<div class="carousel-item">
+											<img class="d-block w-100" src="images/big/img2.jpg" alt="Second slide">
+										</div>
+										<div class="carousel-item">
+											<img class="d-block w-100" src="images/big/img3.jpg" alt="Third slide">
+										</div>
+									</div>
+									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3">
+						<div class="row">
+							<div class="col-xl-12">
+								<div class="card">
+									<div class="card-header border-0 pb-0">
+										<div>
+											<h4 class="card-title mb-2">销量榜</h4>
+										</div>
+									</div>
+									<div class="card-body">
+										<!--									<canvas id="polarChart" class="maxh250"></canvas>-->
+										<ul class="card-list mt-4">
+											<li><span class="bg-blue circle"></span>Account<span>20%</span></li>
+											<li><span class="bg-success circle"></span>Services<span>40%</span></li>
+											<li><span class="bg-warning circle"></span>Restaurant<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+											<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="new-arrival-product">
+									<div class="new-arrivals-img-contnent">
+										<img class="img-fluid" src="images/product/1.jpg" alt="">
+									</div>
+									<div class="new-arrival-content text-center mt-3">
+										<h4><a href="ecom-product-detail.html">Bonorum et Malorum</a></h4>
+										<ul class="star-rating">
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star-half-empty"></i></li>
+											<li><i class="fa fa-star-half-empty"></i></li>
+										</ul>
+										<span class="price">$761.00</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="new-arrival-product">
+									<div class="new-arrivals-img-contnent">
+										<img class="img-fluid" src="images/product/2.jpg" alt="">
+									</div>
+									<div class="new-arrival-content text-center mt-3">
+										<h4><a href="ecom-product-detail.html">Striped Dress</a></h4>
+										<ul class="star-rating">
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+										</ul>
+										<span class="price">$159.00</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="new-arrival-product">
+									<div class="new-arrivals-img-contnent">
+										<img class="img-fluid" src="images/product/3.jpg" alt="">
+									</div>
+									<div class="new-arrival-content text-center mt-3">
+										<h4><a href="ecom-product-detail.html">BBow polka-dot</a></h4>
+										<ul class="star-rating">
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+										</ul>
+										<span class="price">$357.00</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="new-arrival-product">
+									<div class="new-arrivals-img-contnent">
+										<img class="img-fluid" src="images/product/4.jpg" alt="">
+									</div>
+									<div class="new-arrival-content text-center mt-3">
+										<h4><a href="ecom-product-detail.html">Z Product 360</a></h4>
+										<ul class="star-rating">
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star-half-empty"></i></li>
+											<li><i class="fa fa-star-half-empty"></i></li>
+										</ul>
+										<span class="price">$654.00</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="new-arrival-product">
+									<div class="new-arrivals-img-contnent">
+										<img class="img-fluid" src="images/product/5.jpg" alt="">
+									</div>
+									<div class="new-arrival-content text-center mt-3">
+										<h4><a href="ecom-product-detail.html">Chair Grey</a></h4>
+										<ul class="star-rating">
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+										</ul>
+										<span class="price">$369.00</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="new-arrival-product">
+									<div class="new-arrivals-img-contnent">
+										<img class="img-fluid" src="images/product/6.jpg" alt="">
+									</div>
+									<div class="new-arrival-content text-center mt-3">
+										<h4><a href="ecom-product-detail.html">fox sake withe</a></h4>
+										<ul class="star-rating">
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+										</ul>
+										<span class="price">$245.00</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="new-arrival-product">
+									<div class="new-arrivals-img-contnent">
+										<img class="img-fluid" src="images/product/7.jpg" alt="">
+									</div>
+									<div class="new-arrival-content text-center mt-3">
+										<h4><a href="ecom-product-detail.html">Back Bag</a></h4>
+										<ul class="star-rating">
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+										</ul>
+										<span class="price">$364.00</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-lg-6 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="new-arrival-product">
+									<div class="new-arrivals-img-contnent">
+										<img class="img-fluid" src="images/product/1.jpg" alt="">
+									</div>
+									<div class="new-arrival-content text-center mt-3">
+										<h4><a href="ecom-product-detail.html">FLARE DRESS</a></h4>
+										<ul class="star-rating">
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star"></i></li>
+											<li><i class="fa fa-star-half-empty"></i></li>
+											<li><i class="fa fa-star-half-empty"></i></li>
+										</ul>
+										<span class="price">$548.00</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+		<div th:insert="userCommons::Footer"></div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+
+
+
+	</div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="vendor/global/global.min.js"></script>
+	<script src="vendor/chart.js/Chart.bundle.min.js"></script>
+	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+	<!-- Apex Chart -->
+	<script src="vendor/apexchart/apexchart.js"></script>
+	<script src="vendor/nouislider/nouislider.min.js"></script>
+	<script src="vendor/wnumb/wNumb.js"></script>
+
+	<!-- Dashboard 1 -->
+	<script src="js/dashboard/dashboard-1.js"></script>
+
+    <script src="js/custom.min.js"></script>
+	<script src="user/js/dlabnav-init.js"></script>
+
+
+
+</body>
+</html>

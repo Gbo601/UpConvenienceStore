@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="UCS修改商品" />
+	<meta property="og:title" content="UCS修改商品" />
+	<meta property="og:description" content="UCS修改商品" />
+	<meta property="og:image" content="" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>UCS修改商品</title>
+
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <!-- Custom Stylesheet -->
+	<link href="./vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+		<div th:insert="commons::Header(headName='修改商品')"></div>
+
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+		<div th:insert="commons::Sidebar"></div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+				<div class="row page-titles">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">商品管理</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">修改商品</a></li>
+					</ol>
+                </div>
+                <!-- row -->
+                <div class="row" >
+					<center>
+						<div class="col-xl-8 col-xl-8">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">商品信息</h4>
+								</div>
+								<div class="card-body">
+									<div class="basic-form">
+										<form action="/setItem" method="post" th:object="${item}">
+											<div class="input-group mb-3  input-primary">
+												<span class="input-group-text">ID</span>
+												<input type="text" class="form-control" th:value="${item.id}" name="id" readonly="readonly">
+											</div>
+											<div class="input-group mb-3  input-primary">
+												<span class="input-group-text">商品名</span>
+												<input type="text" class="form-control" th:value="${item.itemName}" name="itemName">
+											</div>
+											<div class="input-group mb-3  input-primary">
+												<span class="input-group-text">商品分类</span>
+												<input type="text" class="form-control" th:value="${item.category}" name="category">
+											</div>
+											<div class="input-group mb-3">
+												<label class="input-group-text mb-0">是否在售</label>
+												<select class="default-select  form-control wide" name="isOnSale">
+													<option th:selected="${item.isOnSale} eq false" th:value="false">否</option>
+													<option th:selected="${item.isOnSale} eq true" th:value="true">是</option>
+												</select>
+											</div>
+
+											<div class="input-group mb-3  input-info">
+												<span class="input-group-text">图片地址</span>
+												<input type="text" class="form-control" th:value="${item.picUrl}" name="picUrl">
+											</div>
+											<div class="input-group mb-3">
+												<button class="btn btn-primary btn-sm" type="button" onclick="document.fileForm.submit()">上传</button>
+												<div class="form-file">
+													<input type="file" class="form-file-input form-control">
+												</div>
+											</div>
+
+											<div class="input-group mb-3  input-info">
+												<span class="input-group-text">数量</span>
+												<input type="text" class="form-control" th:value="${item.amount}" name="amount">
+											</div>
+											<div class="input-group mb-3  input-success">
+												<span class="input-group-text">价格</span>
+												<input type="text" class="form-control" th:value="${item.price}" name="price">
+											</div>
+											<div class="input-group mb-3  input-success">
+												<span class="input-group-text">商品描述</span>
+												<input type="text" class="form-control" th:value="${item.detail}" name="detail">
+											</div>
+											<div class="col-12">
+												<button href="/showAllItem" class="btn btn-primary mb-2">取消</button>
+												<button type="submit" class="btn btn-primary mb-2">提交</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</center>
+
+
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+		***********************************-->
+		<div th:insert="commons::Footer"></div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="./vendor/global/global.min.js"></script>
+	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+    <script src="./js/custom.min.js"></script>
+	<script src="./js/dlabnav-init.js"></script>
+
+
+</body>
+</html>
