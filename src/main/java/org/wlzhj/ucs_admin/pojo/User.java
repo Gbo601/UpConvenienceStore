@@ -1,5 +1,7 @@
 package org.wlzhj.ucs_admin.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,8 +13,10 @@ public class User {
     private String phone;
     private String email;
     private String avatar;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
     private BigDecimal money;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date jointime;
 
     public User() {

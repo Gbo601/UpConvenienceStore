@@ -1,5 +1,7 @@
 package org.wlzhj.ucs_admin.pojo;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,6 +13,8 @@ public class Item {
     private BigDecimal price;
     private String detail;
     private String picUrl;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private Date addTime;
     private int amount;
 

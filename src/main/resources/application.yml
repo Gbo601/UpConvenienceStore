@@ -7,7 +7,6 @@ spring:
   web:
     resources:
       static-locations: classpath:/templates
-
   thymeleaf:
     encoding: UTF-8
     prefix: classpath:/templates/
@@ -16,9 +15,14 @@ spring:
     mode: LEGACYHTML5
   resources:
     static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/templates/, classpath:/public/
+  gson:
+    date-format: yyyy-MM-dd
 
 server:
   port: 9088
+  servlet:
+    session:
+      timeout: 180m
 mybatis:
   configuration:
     call-setters-on-nulls: true

@@ -28,7 +28,65 @@
 </head>
 <body>
 
+  <div th:fragment="Chat">
+    <!--**********************************
+        Chat box start
+    ***********************************-->
+    <div class="chatbox">
+      <div class="chatbox-close"></div>
+      <div class="custom-tab-1">
+        <center>
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" data-bs-toggle="tab" href="#notes">购物车</a>
+            </li>
+          </ul>
+        </center>
 
+        <div class="tab-content">
+          <div class="tab-pane fade active show" id="chat" role="tabpanel">
+            <div class="card mb-sm-3 mb-md-0 contacts_card dlab-chat-user-box">
+              <div class="card-header chat-list-header text-center">
+
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade active show" id="notes" >
+            <div class="card mb-sm-3 mb-md-0 note_card">
+
+              <div class="card-body contacts_body p-0 dlab-scroll" id="dlab_W_Contacts_Body2">
+                <ul class="contacts">
+                  <li>
+                    <div class="d-flex bd-highlight">
+                      <div class="user_info">
+                        <span>康师傅牛肉面</span>
+                        <p>x5</p>
+                      </div>
+                      <div class="ms-auto">
+                        <a href="#" class="btn btn-primary btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
+                        <a href="#" class="btn btn-danger btn-xs sharp"><i class="fa fa-trash"></i></a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+              </div>
+              <center>
+                <button type="button" class="btn btn-primary btn-rounded" >
+                  <span class="btn-icon-start text-primary"><i class="fa fa-shopping-cart"></i></span>
+                  购买
+                </button>
+              </center>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--**********************************
+        Chat box End
+    ***********************************-->
+  </div>
   <div th:fragment="Header(headName)">
   <div class="header">
     <div class="header-content">
@@ -45,8 +103,12 @@
                 <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
               </div>
             </li>
-
-
+            <li class="nav-item dropdown notification_dropdown">
+              <a class="nav-link bell bell-link" href="javascript:void(0);">
+                <span class="btn-icon-start text-primary"><i class="fa fa-shopping-cart"></i></span>
+                <span class="badge light text-white bg-primary rounded-circle"></span>
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -84,18 +146,18 @@
               </div>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-              <a href="/adminSetting.html" class="dropdown-item ai-icon">
+              <a href="/toUserSettingPage" class="dropdown-item ai-icon">
                 <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 <span class="ms-2">设置 </span>
               </a>
-              <a href="/logout" class="dropdown-item ai-icon">
+              <a href="/logoutUser" class="dropdown-item ai-icon">
                 <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                 <span class="ms-2">退出 </span>
               </a>
             </div>
           </li>
 
-          <li><a  href="javascript:void(0)" aria-expanded="false">
+          <li><a  href="toUserIndex">
             <i class="flaticon-025-dashboard"></i>
             <span class="nav-text">主页</span>
           </a>
@@ -110,16 +172,6 @@
               <li><a href="toAddItemPage">添加商品</a></li>
             </ul>
           </li>
-
-          <li><a  href="javascript:void(0)" aria-expanded="false">
-            <i class="flaticon-043-menu"></i>
-            <span class="nav-text">购物车</span>
-          </a>
-          </li>
-
-
-
-
         </ul>
         <div class="copyright">
           <p class="fs-12">Made with <span class="heart"></span> by WLZHJ</p>

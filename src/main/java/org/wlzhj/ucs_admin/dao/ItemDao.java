@@ -20,4 +20,7 @@ public interface ItemDao {
 
     @Update("update item set itemName=#{itemName}, category=#{category},isOnSale=#{isOnSale},price=#{price},detail=#{detail},picUrl=#{picUrl},addTime=#{addTime},amount=#{amount} where id = #{id}")
     void set(Item item);
+
+    @Select("select * form item where category=#{category}")
+    List<Item> selectCategory(String category);
 }

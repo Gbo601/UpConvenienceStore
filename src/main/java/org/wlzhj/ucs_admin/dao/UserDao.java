@@ -19,9 +19,12 @@ public interface UserDao {
     @Delete("delete from user where id =#{id}")
     void remove(int id);
 
-    @Update("update user set userName=#{userName}, userPassword=#{userPassword}, gender=#{gender}, phone=#{phone}),email=#{email},avatar=#{avatar},birthday=#{birthday},money=#{money}")
+    @Update("update user set userName=#{userName}, userPassword=#{userPassword}, gender=#{gender}, phone=#{phone},email=#{email}, avatar=#{avatar}, birthday=#{birthday}, money=#{money} where id=#{id}")
     void set(User user);
 
     @Select("select * from user where id = #{id}")
     User showById(int id);
+
+    @Update("update user set userName=#{userName}, userPassword=#{userPassword}, gender=#{gender}, phone=#{phone},email=#{email}, avatar=#{avatar}, birthday=#{birthday} where id=#{id}")
+    void userSetPersonal(User user);
 }

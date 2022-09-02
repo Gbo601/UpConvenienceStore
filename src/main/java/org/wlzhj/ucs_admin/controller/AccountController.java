@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -54,14 +55,15 @@ public class AccountController {
 
 
     @PostMapping("/userLoginCheck")
-    public String userLoginCheck(String userName, String userPassword ,HttpServletResponse response,HttpServletRequest request){
+    public String userLoginCheck(String userName, String userPassword , HttpServletResponse response, HttpServletRequest request, HttpSession session){
         User user = userDao.login(userName,userPassword);
         if(user != null){
             String token = tokenUtil.generateToken(user);
             Cookie cookie = new Cookie("token", token);
             cookie.setPath("/");
             response.addCookie(cookie);
-            return "userIndex";
+            session.setAttribute("userId",user.getId());
+            return "redirect:/toUserIndex";
         }else{
             return "userLogin";
         }
@@ -76,10 +78,17 @@ public class AccountController {
         userDao.add(user);
         return "userLogin";
     }
-    @GetMapping("/logout")
-    public String logOut(HttpServletResponse response){
+    @GetMapping("/logoutAdmin")
+    public String logoutAdmin(HttpServletResponse response){
         Cookie cookie = new Cookie("token", null);
         response.addCookie(cookie);
         return "adminLogin";
+    }
+
+    @GetMapping("/logoutUser")
+    public String logoutUser(HttpServletResponse response){
+        Cookie cookie = new Cookie("token", null);
+        response.addCookie(cookie);
+        return "redirect:/toUserIndex";
     }
 }
