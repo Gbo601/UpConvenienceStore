@@ -1,14 +1,13 @@
 package org.wlzhj.ucs_admin.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -17,36 +16,29 @@ import java.util.UUID;
  * @Date: 2022-2022/9/1 22:37
  * @Description: TODO
  */
-@Controller
+
+@RestController
+@RequestMapping("/upload")
 public class FileController {
-    @PostMapping("/upload")
-    public @ResponseBody String upload(@RequestParam MultipartFile file, HttpServletRequest request){
-        if(!file.isEmpty()){
-            String uploadPath = "src/main/resources/pic";
-            // 如果目录不存在则创建
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            String OriginalFilename = file.getOriginalFilename();//获取原文件名
-            String suffixName = OriginalFilename.substring(OriginalFilename.lastIndexOf("."));//获取文件后缀名
-            //重新随机生成名字
-            String filename = UUID.randomUUID().toString() +suffixName;
-            File localFile = new File(uploadPath+"\\"+filename);
-            try {
-                file.transferTo(localFile); //把上传的文件保存至本地
-                /**
-                 * 这里应该把filename保存到数据库,供前端访问时使用
-                 */
-                return filename;//上传成功，返回保存的文件地址
-            }catch (IOException e){
-                e.printStackTrace();
-                System.out.println("上传失败");
-                return "";
-            }
-        }else{
-            System.out.println("文件为空");
-            return "";
-        }
+
+    @PostMapping
+    public String upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws Exception {
+        // file:上传文件
+        // 获取到 images 的具体路径
+        // String realPath = request.getRealPath("images");
+        String realPath = "D:\\Study\\GDSX\\UpConvenienceStore\\ucs_admin\\src\\main\\resources\\templates\\images\\pic";
+        System.out.println("上传的文件地址是：" + realPath);
+        // 服务器中对应的位置
+        // 产生唯一的文件名称
+
+        String fileName = UUID.randomUUID().toString();
+        // 获取到文件后缀
+        String fileType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        File src = new File(realPath, fileName + fileType);
+        // 将file文件传递到src去
+        file.transferTo(src);
+        return fileName + fileType;
     }
+
+
 }

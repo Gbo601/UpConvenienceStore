@@ -1,5 +1,6 @@
 package org.wlzhj.ucs_admin.dao;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.wlzhj.ucs_admin.pojo.Admin;
@@ -16,5 +17,9 @@ public interface AdminDao {
 
     @Select("select * from admin")
     public List<Admin> getAllAdmin();
+
+
+    @Insert("insert into admin values(0,#{adminName},#{adminPassword},#{powerLevel},#{avatar})")
+    void add(Admin admin);
 
 }

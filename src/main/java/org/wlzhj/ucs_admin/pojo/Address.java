@@ -15,5 +15,5 @@ public class Address {
     private String address;
     private String phone;
     private String name;
-    private boolean check;
+    private boolean checked;
 }

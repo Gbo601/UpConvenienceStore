@@ -3,6 +3,7 @@ package org.wlzhj.ucs_admin.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.wlzhj.ucs_admin.dao.AdminDao;
 import org.wlzhj.ucs_admin.pojo.Admin;
 
@@ -24,8 +25,22 @@ public class AdminController {
     @GetMapping("/showAllAdmin")
     public String showAllAdmin(Model model){
         List<Admin> list = adminDao.getAllAdmin();
-        System.out.println(list);
         model.addAttribute("list",list);
         return "adminTable";
+    }
+
+    @GetMapping("toAddAdminPage")
+    public String toAddAdminPage(){
+        return "addAdmin";
+    }
+    @PostMapping("addAdmin")
+    public String add(Admin admin){
+        adminDao.add(admin);
+        return "redirect:/showAllAdmin";
+    }
+
+    @GetMapping("toAdminIndex")
+    public String toAdminIndex(){
+        return "index";
     }
 }

@@ -14,15 +14,21 @@ spring:
     cache: false
     mode: LEGACYHTML5
   resources:
-    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/templates/, classpath:/public/
+    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, classpath:/templates/, classpath:/public/,classpath:/resources/static/images/
   gson:
     date-format: yyyy-MM-dd
+  servlet:
+    multipart:
+      max-file-size=10MB
+      max-request-size=10MB
+    enabled: true
 
 server:
   port: 9088
   servlet:
     session:
       timeout: 180m
+
 mybatis:
   configuration:
     call-setters-on-nulls: true

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -8,14 +8,14 @@
 	<meta name="author" content="" />
 	<meta name="robots" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="UCS修改商品" />
-	<meta property="og:title" content="UCS修改商品" />
-	<meta property="og:description" content="UCS修改商品" />
+	<meta name="description" content="UCS修改地址" />
+	<meta property="og:title" content="UCS修改地址" />
+	<meta property="og:description" content="UCS修改地址" />
 	<meta property="og:image" content="" />
 	<meta name="format-detection" content="telephone=no">
 
 	<!-- PAGE TITLE HERE -->
-	<title>UCS修改商品</title>
+	<title>UCS修改地址</title>
 
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
@@ -35,7 +35,7 @@
         <!--**********************************
             Header start
         ***********************************-->
-		<div th:insert="commons::Header(headName='修改商品')"></div>
+		<div th:insert="commons::Header(headName='修改地址')"></div>
 
         <!--**********************************
             Header end ti-comment-alt
@@ -56,8 +56,8 @@
             <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">商品管理</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">修改商品</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">地址管理</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">修改地址</a></li>
 					</ol>
                 </div>
                 <!-- row -->
@@ -66,54 +66,38 @@
 						<div class="col-xl-8 col-xl-8">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">商品信息</h4>
+									<h4 class="card-title">修改地址</h4>
 								</div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/setItem" method="post" th:object="${item}" enctype="multipart/form-data">
+										<form action="/setAddress" method="post" th:object="${address}">
 											<div class="input-group mb-3  input-primary">
-												<span class="input-group-text">ID</span>
-												<input type="text" class="form-control" th:value="${item.id}" name="id" readonly="readonly">
-											</div>
-											<div class="input-group mb-3  input-primary">
-												<span class="input-group-text">商品名</span>
-												<input type="text" class="form-control" th:value="${item.itemName}" name="itemName">
+												<span class="input-group-text">地址编号</span>
+												<input type="text" class="form-control" th:value="${address.id}" name="id" readonly="readonly">
 											</div>
 											<div class="input-group mb-3  input-primary">
-												<span class="input-group-text">商品分类</span>
-												<input type="text" class="form-control" th:value="${item.category}" name="category">
+												<span class="input-group-text">用户编号</span>
+												<input type="text" class="form-control" th:value="${address.userId}" name="userId" readonly="readonly">
 											</div>
-											<div class="input-group mb-3">
-												<label class="input-group-text mb-0">是否在售</label>
-												<select class="default-select  form-control wide" name="isOnSale">
-													<option th:selected="${item.isOnSale} eq false" th:value="false">否</option>
-													<option th:selected="${item.isOnSale} eq true" th:value="true">是</option>
-												</select>
+											<div class="input-group mb-3  input-primary">
+												<span class="input-group-text">地址</span>
+												<input type="text" class="form-control" th:value="${address.address}" name="address">
 											</div>
-
-											<div class="input-group mb-3 input-primary">
-												<span class="input-group-text">商品图片</span>
-												<div class="form-file">
-													<input type="file" class="form-file-input form-control" name="file">
-												</div>
+											<div class="input-group mb-3  input-primary">
+												<span class="input-group-text">手机</span>
+												<input type="text" class="form-control" th:value="${address.phone}" name="phone">
 											</div>
 
 											<div class="input-group mb-3  input-info">
-												<span class="input-group-text">数量</span>
-												<input type="text" class="form-control" th:value="${item.amount}" name="amount">
+												<span class="input-group-text">名字</span>
+												<input type="text" class="form-control" th:value="${address.name}" name="name">
 											</div>
-											<div class="input-group mb-3  input-success">
-												<span class="input-group-text">价格</span>
-												<input type="text" class="form-control" th:value="${item.price}" name="price">
-											</div>
-											<div class="input-group mb-3  input-success">
-												<span class="input-group-text">商品描述</span>
-												<input type="text" class="form-control" th:value="${item.detail}" name="detail">
-											</div>
+
 											<div class="col-12">
-												<button type="submit" class="btn btn-primary mb-2">提交</button>
+												<button type="submit" class="btn btn-danger mb-2">提交</button>
 											</div>
 										</form>
+
 									</div>
 								</div>
 							</div>

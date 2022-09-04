@@ -8,21 +8,19 @@
 	<meta name="author" content="" />
 	<meta name="robots" content="" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="UCS商品数据" />
-	<meta property="og:title" content="UCS商品数据" />
-	<meta property="og:description" content="UCS商品数据" />
+	<meta name="description" content="UCS订单数据" />
+	<meta property="og:title" content="UCS订单数据" />
+	<meta property="og:description" content="UCS订单数据" />
 	<meta property="og:image" content="" />
 	<meta name="format-detection" content="telephone=no">
 
 	<!-- PAGE TITLE HERE -->
-	<title>UCS商品数据</title>
+	<title>UCS订单数据</title>
 
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
     <!-- Datatable -->
     <link href="./vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="./vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
-
     <!-- Custom Stylesheet -->
 	<link href="./vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
@@ -38,7 +36,7 @@
             <!--**********************************
                 Header start
             ***********************************-->
-            <div th:insert="commons::Header(headName='商品数据')"></div>
+            <div th:insert="commons::Header(headName='未发货订单')"></div>
             <!--**********************************
                 Header end ti-comment-alt
             ***********************************-->
@@ -59,8 +57,8 @@
 
                     <div class="row page-titles">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">商品管理</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">商品数据</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">订单管理</a></li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">未发货</a></li>
                         </ol>
                     </div>
                     <!-- row -->
@@ -68,39 +66,43 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">商品数据</h4>
+                                    <h4 class="card-title">订单数据</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table id="example3" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
+                                                    <th>订单编号</th>
+                                                    <th>订单状态</th>
+                                                    <th>手机</th>
+                                                    <th>地址</th>
+                                                    <th>留言</th>
+                                                    <th>商品价格</th>
+                                                    <th>支付时间</th>
+                                                    <th>添加时间</th>
                                                     <th></th>
-                                                    <th>ID</th>
-                                                    <th>商品名称</th>
-                                                    <th>商品分类</th>
-                                                    <th>是否上架</th>
-                                                    <th>价格</th>
-                                                    <th>库存</th>
-                                                    <th>加入时间</th>
-                                                    <th>操作</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="item,iter:${list}">
-                                                    <td><img class="rounded-circle" width="35" th:src="'images/pic/'+${item.picUrl}" alt=""></td>
-                                                    <td th:text="${item.id}"></td>
-                                                    <td th:text="${item.itemName}"></td>
-                                                    <td th:text="${item.category}"></td>
-                                                    <td th:text="${item.isOnSale}"></td>
-                                                    <td th:text="${item.price}"></td>
-                                                    <td th:text="${item.amount}"></td>
-                                                    <td th:text="${#dates.format(item.addTime,'yyyy-MM-dd')}"></td>
+                                                <tr th:each="indent,iter:${list}">
+                                                    <td th:text="${indent.orderSn}"></td>
+                                                    <td th:text="${indent.orderStatus}"></td>
+                                                    <td th:text="${indent.phone}"></td>
+                                                    <td th:text="${indent.address}"></td>
+                                                    <td th:text="${indent.message}"></td>
+                                                    <td th:text="${indent.itemPrice}"></td>
+                                                    <td th:text="${#dates.format(indent.payTime,'yyyy-MM-dd')}"></td>
+                                                    <td th:text="${#dates.format(indent.addTime,'yyyy-MM-dd')}"></td>
                                                     <td>
-                                                        <div class="d-flex">
-                                                            <a th:href="@{showByIdItem(id=${item.id})}"  class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
-                                                            <a th:href="@{removeItem(id=${item.id})}"  class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                        <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-8" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
+                                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-8">
+                                                                <div class="py-2">
+                                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" th:href="@{setHasDeliver(id=${indent.id})}">设为发货</a>
+                                                                </div>
+                                                            </div>
                                                         </div>
+
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -137,9 +139,6 @@
     <!-- Required vendors -->
     <script src="./vendor/global/global.min.js"></script>
     <script src="./vendor/chart.js/Chart.bundle.min.js"></script>
-
-    <script src="./vendor/sweetalert2/dist/sweetalert2.min.js"></script>
-    <script src="./js/plugins-init/sweetalert.init.js"></script>
 	<!-- Apex Chart -->
 	<script src="./vendor/apexchart/apexchart.js"></script>
 

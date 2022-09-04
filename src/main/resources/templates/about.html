@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>About</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="./css/styleAbout.css">
+  <!-- FAVICONS ICON -->
+  <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+  <!-- Datatable -->
+  <link href="./vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- Custom Stylesheet -->
+  <link href="./vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+<!--  <link href="./css/style.css" rel="stylesheet">-->
+  <link rel="stylesheet" href="./css/styleAbout.css">
+
+
+</head>
+<body>
+
+
+<div id="main-wrapper">
+
+  <!--**********************************
+          Header start
+      ***********************************-->
+  <div th:insert="commons::Header(headName='主页')"></div>
+  <!--**********************************
+      Header end ti-comment-alt
+  ***********************************-->
+
+  <!--**********************************
+      Sidebar start
+  ***********************************-->
+    <div th:insert="commons::Sidebar"></div>
+  <!--**********************************
+      Sidebar end
+  ***********************************-->
+    <div class="screen"></div>
+    <ul class="dance-animation">
+      <li class="dance-frame dance-animation--dancer1"></li>
+      <li class="dance-frame dance-animation--dancer2"></li>
+      <li class="dance-frame dance-animation--dancer3"></li>
+      <li class="dance-frame dance-animation--dancer4"></li>
+      <li class="dance-frame dance-animation--dancer5"></li>
+      <li class="dance-frame dance-animation--dancer6"></li>
+      <li class="dance-frame dance-animation--dancer7"></li>
+      <li class="dance-frame dance-animation--dancer8"></li>
+      <li class="dance-frame dance-animation--dancer9"></li>
+      <li class="dance-frame dance-animation--dancer10"></li>
+      <li class="dance-frame dance-animation--dancer11"></li>
+    </ul>
+    <iframe width="0" height="0" src="https://www.1youtuberepeater.com/watch?v=kWvbJsB0OBc&name=Tom+Jones+Its+Not+Unusual+With+Lyrics" frameborder="0" allowfullscreen></iframe>
+
+    <div class="play-music">
+      <div id="music-animation" class="music-animation">
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+        <span class="bar bar3"></span>
+        <span class="bar bar4"></span>
+        <span class="bar bar5"></span>
+      </div>
+      <div class="music-toggle"><a onClick="togglePlay()" id="toggle" data-text-swap="Music on">Music off</a></div>
+    </div>
+    <audio id="music" loop="loop" src="https://web.opendrive.com/api/v1/download/file.json/OV84MDUyNTM1NF9aSXB6Sw?inline=1"></audio>
+
+  <div th:insert="commons::Footer"></div>
+</div>
+<!-- partial:index.partial.html -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script><script  src="./js/scriptABout.js"></script>
+
+
+<!-- partial -->
+
+<!--<script src="./vendor/global/global.min.js"></script>-->
+
+
+<!--&lt;!&ndash; Datatable &ndash;&gt;-->
+<!--<script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="./js/plugins-init/datatables.init.js"></script>-->
+
+<!--<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>-->
+
+<!--<script src="./js/custom.min.js"></script>-->
+<!--<script src="./js/dlabnav-init.js"></script>-->
+<!--**********************************
+    Footer start
+***********************************-->
+
+<!--**********************************
+    Footer end
+***********************************-->
+</body>
+</html>

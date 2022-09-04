@@ -5,8 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.wlzhj.ucs_admin.dao.AddressDao;
+import org.wlzhj.ucs_admin.dao.IndentDao;
+import org.wlzhj.ucs_admin.dao.ItemDao;
 import org.wlzhj.ucs_admin.dao.UserDao;
 import org.wlzhj.ucs_admin.pojo.Address;
+import org.wlzhj.ucs_admin.pojo.Indent;
+import org.wlzhj.ucs_admin.pojo.Item;
 import org.wlzhj.ucs_admin.pojo.User;
 
 import javax.annotation.Resource;
@@ -22,6 +26,12 @@ public class UserController {
 
     @Resource
     AddressDao addressDao;
+
+    @Resource
+    ItemDao itemDao;
+
+    @Resource
+    IndentDao indentDao;
 
     @PostMapping ("addUser")
     public String add(User user){//增加信息
@@ -61,12 +71,24 @@ public class UserController {
         int userId = (Integer) session.getAttribute("userId");
         User user = usersDao.showById(userId);
         List<Address> address = addressDao.showPersonalAllAddress(userId);
+        List<Indent> allIndentList = indentDao.showUserAllIndent(userId);
+        List<Indent> noPaymentIndentList = indentDao.showUserStatusIndent(userId,0);
+        List<Indent> noDeliverIndentList = indentDao.showUserStatusIndent(userId,1);
+        List<Indent> noReceiptIndentList = indentDao.showUserStatusIndent(userId,2);
+
         model.addAttribute("user",user);
         model.addAttribute("address",address);
+        model.addAttribute("allIndentList",allIndentList);
+        model.addAttribute("noPaymentIndentList",noPaymentIndentList);
+        model.addAttribute("noDeliverIndentList",noDeliverIndentList);
+        model.addAttribute("noReceiptIndentList",noReceiptIndentList);
+
         return "userSetting";
     }
     @GetMapping("toUserIndex")
-    public String toUserIndex(){
+    public String toUserIndex(Model model){
+        List<Item> itemList = itemDao.showOnSaleItem();
+        model.addAttribute("itemList",itemList);
         return "userIndex";
     }
 
@@ -76,5 +98,10 @@ public class UserController {
         System.out.println(user);
         usersDao.userSetPersonal(user);
         return "redirect:/toUserSettingPage";
+    }
+
+    @GetMapping("toAbout")
+    public String toAbout(){
+        return "about";
     }
 }

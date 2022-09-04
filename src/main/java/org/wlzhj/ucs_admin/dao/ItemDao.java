@@ -18,9 +18,19 @@ public interface ItemDao {
     @Select("select * from item where id = #{id}")
     Item showById(int id);
 
-    @Update("update item set itemName=#{itemName}, category=#{category},isOnSale=#{isOnSale},price=#{price},detail=#{detail},picUrl=#{picUrl},addTime=#{addTime},amount=#{amount} where id = #{id}")
-    void set(Item item);
+    @Update("update item set itemName=#{itemName}, category=#{category},isOnSale=#{isOnSale},price=#{price},detail=#{detail},addTime=#{addTime},amount=#{amount} where id = #{id}")
+    void setNoPic(Item item);
 
-    @Select("select * form item where category=#{category}")
-    List<Item> selectCategory(String category);
+    @Update("update item set itemName=#{itemName}, category=#{category},isOnSale=#{isOnSale},price=#{price},detail=#{detail},picUrl=#{picUrl},addTime=#{addTime},amount=#{amount} where id = #{id}")
+    void sethavePic(Item item);
+
+    @Select("select * from item where category=#{category} and isOnSale=1")
+    List<Item> showCategory(String category);
+
+    @Select("select * from item where isOnSale=1")
+    List<Item> showOnSaleItem();
+
+    @Update("update item set amount=#{amount} where id = #{id}")
+    void setAmount(int amount,int id);
+
 }

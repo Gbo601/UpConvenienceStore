@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.wlzhj.ucs_admin.dao.AdminDao;
 import org.wlzhj.ucs_admin.dao.UserDao;
 import org.wlzhj.ucs_admin.pojo.Admin;
@@ -38,15 +39,21 @@ public class AccountController {
     public String toLoginPage(){
         return "userLogin";
     }
+
+    @GetMapping("/adminLogin")
+    public String toAdminLoginPage(){
+        return "adminLogin";
+    }
     @PostMapping("/adminLoginCheck")
-    public String adminLoginCheck(String adminName, String adminPassword ,HttpServletResponse response,HttpServletRequest request){
+    public String adminLoginCheck(String adminName, String adminPassword ,HttpServletResponse response,HttpServletRequest request,HttpSession session){
         Admin admin = adminDao.adminLogin(adminName,adminPassword);
         if(admin != null){
             String token = tokenUtil.generateToken(admin);
             Cookie cookie = new Cookie("token", token);
-            cookie.setPath("/templates");
+            cookie.setPath("/x ");
             response.addCookie(cookie);
-            request.setAttribute("adminName",admin.getAdminName());
+            session.setAttribute("adminName",admin.getAdminName());
+            session.setAttribute("adminId",admin.getId());
             return "index";
         }else{
             return "adminLogin";
@@ -63,6 +70,8 @@ public class AccountController {
             cookie.setPath("/");
             response.addCookie(cookie);
             session.setAttribute("userId",user.getId());
+            session.setAttribute("userName",user.getUserName());
+
             return "redirect:/toUserIndex";
         }else{
             return "userLogin";

@@ -68,8 +68,7 @@ public class TokenUtil {
 
     public String getToken(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        for (Cookie c :
-                cookies) {
+        for (Cookie c : cookies) {
             if (c.getName().equals("token")) {
                 return c.getValue();
             }

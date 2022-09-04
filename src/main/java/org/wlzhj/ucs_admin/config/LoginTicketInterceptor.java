@@ -28,17 +28,14 @@ import javax.servlet.http.HttpSession;
     TokenUtil tokenUtil;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
-//        if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
-//            return true;
-//        }
-////        查看请求中是否存在token，如果不存在直接跳转到登陆页面
+
+//        查看请求中是否存在token，如果不存在直接跳转到登陆页面
 //        String token = tokenUtil.getToken(request);
-//
-//        if (StringUtils.isEmpty(token)) {
-//            response.sendRedirect("/adminLogin");
+//        String token =  request.getSession().getAttribute("admin");
+//        if (token == null) {
+//            response.sendRedirect("/login");
 //            return false;
 //        }
-
         return true;
     }
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,  ModelAndView modelAndView) throws Exception {

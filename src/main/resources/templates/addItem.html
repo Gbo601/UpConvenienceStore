@@ -70,7 +70,7 @@
 								</div>
 								<div class="card-body">
 									<div class="basic-form">
-										<form action="/addItem" method="post">
+										<form action="/addItem" method="post" enctype="multipart/form-data">
 
 											<div class="input-group mb-3  input-primary">
 												<span class="input-group-text">商品名</span>
@@ -81,10 +81,13 @@
 												<input type="text" class="form-control" name="category">
 											</div>
 
-											<div class="input-group mb-3  input-info">
-												<span class="input-group-text">图片地址</span>
-												<input type="text" class="form-control" name="picUrl">
+											<div class="input-group mb-3 input-primary">
+												<span class="input-group-text">商品图片</span>
+												<div class="form-file">
+													<input type="file" class="form-file-input form-control" name="file">
+												</div>
 											</div>
+
 											<div class="input-group mb-3  input-info">
 												<span class="input-group-text">数量</span>
 												<input type="text" class="form-control" name="amount">

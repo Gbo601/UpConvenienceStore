@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="UCS订单信息" />
+	<meta property="og:title" content="UCS订单信息" />
+	<meta property="og:description" content="UCS订单信息" />
+	<meta property="og:image" content="" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>UCS订单信息</title>
+
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+	<link href="./vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+	<link href="./vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+		<!--**********************************
+            Header start
+        ***********************************-->
+		<div th:insert="userCommons::Header(headName='订单信息')"></div>
+		<!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+		<!--**********************************
+            Sidebar start
+        ***********************************-->
+		<div th:insert="userCommons::Sidebar"></div>
+		<!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+				<div class="row page-titles">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">Layout</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Blank</a></li>
+					</ol>
+                </div>
+                <div class="row">
+					<center>
+						<div class="col-lg-10">
+
+							<div class="card mt-3">
+								<div class="card-header"> 订单信息 <strong>01/01/01/2018</strong> <span class="float-end">
+                                    <strong>状态:</strong> 待定</span>
+								</div>
+								<div class="card-body">
+									<form action="/addIndent" method="post">
+										<div class="row mb-5"></div>
+										<div class="table-responsive">
+											<table class="table table-striped">
+												<thead>
+												<tr>
+													<th class="center">#</th>
+													<th>商品名</th>
+													<th class="right">单价</th>
+													<th class="center">数量</th>
+													<th class="right">总价</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr th:each="cart,iter:${list}">
+													<td class="center" th:text="${cart.id}"></td>
+													<td class="left strong" th:text="${cart.itemName}"></td>
+													<td class="right" th:text="${cart.price}"></td>
+													<td class="center" th:text="${cart.number}"></td>
+													<td class="right" th:text="${cart.number}*${cart.price}"></td>
+												</tr>
+
+												</tbody>
+											</table>
+										</div>
+										<div class="row">
+											<div class="col-lg-8 col-sm-5" th:object="${address}">
+												<div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12 ">
+													<h6>配送地址</h6>
+													<div >宿舍楼: <strong th:text="${address.address}"></strong> </div>
+													<div th:text="'昵 称: '+${address.name}" ></div>
+													<div th:text="'手 机: '+${address.phone}"></div>
+												</div>
+											</div>
+											<div class="col-lg-4 col-sm-5 ms-auto">
+												<div class="input-group   input-dark">
+													<span class="input-group-text">留言</span>
+													<textarea class="form-control" name="message"></textarea>
+												</div>
+												<table class="table table-clear">
+													<tbody>
+													<tr>
+														<td class="left"><strong>总价</strong></td>
+														<td class="right"><strong th:text="'￥'+${sum}" ></strong><br>
+															<strong></strong></td>
+													</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<center>
+											<button type="submit" class="btn btn-primary btn-rounded" >
+												<span class="btn-icon-start text-primary"><i class="fa fa-shopping-cart"></i></span>
+												提交订单
+											</button>
+										</center>
+									</form>
+
+
+								</div>
+							</div>
+						</div>
+					</center>
+
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+		<!--**********************************
+            Footer start
+        ***********************************-->
+		***********************************-->
+		<div th:insert="commons::Footer"></div>
+		<!--**********************************
+            Footer end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="./vendor/global/global.min.js"></script>
+	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="./js/custom.min.js"></script>
+	<script src="./user/js/dlabnav-init.js"></script>
+
+
+</body>
+</html>

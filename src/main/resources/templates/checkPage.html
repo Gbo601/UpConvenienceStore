@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="支付" />
+	<meta property="og:title" content="支付" />
+	<meta property="og:description" content="支付" />
+	<meta property="og:image" content="" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- PAGE TITLE HERE -->
+	<title>支付</title>
+
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link href="./vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+		<link href="./vendor/jquery-nice-select/css/nice-select.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+		<!--**********************************
+                    Header start
+                ***********************************-->
+		<div th:insert="userCommons::Header(headName='支付')"></div>
+		<!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+		<!--**********************************
+            Sidebar start
+        ***********************************-->
+		<div th:insert="userCommons::Sidebar"></div>
+		<!--**********************************
+            Sidebar end
+        ***********************************-->
+
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+				<div class="row page-titles">
+
+                </div>
+                <div class="row">
+					<center>
+						<div class="col-xl-5 col-lg-6">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">支付</h4>
+								</div>
+								<center>
+									<div class="card-body">
+										<div class="basic-form">
+											<div class="row align-items-center">
+												<form action="#" method="post" th:object="${indent}">
+													<div class="mb-3">
+														<div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end justify-content-md-center justify-content-xs-start">
+															<div >
+																<div class="col-sm-9">
+																<div class="brand-logo mb-3" >
+																	<img class="logo-abbr me-2" width="53" src="./images/logo.png" alt="">
+																	<img class="logo-compact" width="124" src="./images/logo-text.png" alt="">
+																	<img src="images/qr.png" alt="" class="img-fluid width110">
+																</div>
+																</div>
+																<small class="text-muted" th:text="'SN : '+${indent.orderSn}"></small>
+																<small class="text-muted" th:text="'需要支付:￥'+${indent.itemPrice}"></small>
+															</div>
+														</div>
+														<label class="form-label">选择支付方式</label>
+														<select class="default-select  form-control wide" >
+															<option>余额支付</option>
+															<option>支付宝(未开发)</option>
+															<option>微信(未开发)</option>
+														</select>
+													</div>
+													<div class="mb-3">
+														<a th:href="@{toCheck(id=${indent.id})}">
+															<button type="button" class="btn btn-primary btn-rounded" onclick="showCheckSucc()">
+																<span class="btn-icon-start text-primary"><i class="fa fa-shopping-cart"></i></span>
+																支付
+															</button>
+														</a>
+													</div>
+												</form>
+											</div>
+
+										</div>
+									</div>
+								</center>
+
+							</div>
+						</div>
+					</center>
+
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+		<!--**********************************
+            Footer start
+        ***********************************-->
+		<div th:insert="userCommons::Footer"></div>
+		<!--**********************************
+            Footer end
+        ***********************************-->
+
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="./vendor/global/global.min.js"></script>
+
+    <script src="./vendor/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script src="./js/plugins-init/sweetalert.init.js"></script>
+
+	<script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+
+    <script src="./js/custom.min.js"></script>
+	<script src="./user/js/dlabnav-init.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+		// function showCheckSucc(){
+		// 	swal({
+		// 		title: "你已完成支付",
+		// 		icon: "success",
+		// 		button: "好的",
+		// 	}).then(
+		//
+		// 	);
+		// }
+	</script>
+
+</body>
+</html>
