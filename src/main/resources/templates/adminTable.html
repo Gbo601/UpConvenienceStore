@@ -75,14 +75,17 @@
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>管理员名称</th>
-                                                    <th>权限等级</th>
+                                                    <th>角色</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr th:each="admin,iter:${list}">
                                                     <td th:text="${admin.id}"></td>
                                                     <td th:text="${admin.adminName}"></td>
-                                                    <td th:text="${admin.powerLevel}"></td>
+                                                    <td >
+                                                        <span th:if="${admin.powerLevel} eq false">店员</span>
+                                                        <span th:if="${admin.powerLevel} eq true">店长</span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

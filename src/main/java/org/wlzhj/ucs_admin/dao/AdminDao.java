@@ -12,12 +12,14 @@ public interface AdminDao {
     @Select("select * from admin where adminName = #{adminName} and adminPassword = #{adminPassword}")
     public Admin adminLogin(String adminName, String adminPassword);
 
+    @Select("select * from admin where adminName=#{adminName}")
+    public Admin getAdminByName(String adminName);
+
     @Select("select * from admin where id=#{id}")
     public Admin getAdminById(int id);
 
     @Select("select * from admin")
     public List<Admin> getAllAdmin();
-
 
     @Insert("insert into admin values(0,#{adminName},#{adminPassword},#{powerLevel},#{avatar})")
     void add(Admin admin);

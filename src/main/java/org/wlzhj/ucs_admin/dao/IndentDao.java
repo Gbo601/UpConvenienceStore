@@ -9,6 +9,9 @@ public interface IndentDao {
     @Select("select * from indent")
     List<Indent> show();
 
+    @Select("select count(*) from indent where orderStatus=1")
+    int showNoDeliverIndentSum();
+
     @Select("select * from indent where id = #{id}")
     Indent showById(int id);
 

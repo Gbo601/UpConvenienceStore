@@ -5,15 +5,17 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Indexed;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.wlzhj.ucs_admin.commom.lang.lang.Result;
 import org.wlzhj.ucs_admin.dao.*;
 import org.wlzhj.ucs_admin.pojo.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,10 +115,23 @@ public class IndentController {
         return "checkPage";
     }
 
+
+
+    @GetMapping("userToCheckPage")
+    public String userToCheckPage(int id,Model model){
+        Indent indent = indentDao.showById(id);
+        model.addAttribute("indent",indent);
+        return  "checkPage";
+    }
+
     @GetMapping("toCheck")
-    public String toCheck(int id,HttpSession session){
+    @ResponseBody
+    public Result toCheck(int id){
         Indent indent = indentDao.showById(id);
         User user = userDao.showById(indent.getUserId());
+        if(user.getMoney().subtract(indent.getItemPrice()).compareTo(BigDecimal.ZERO) == -1){
+            return Result.fail("400","余额不足",null);
+        }
         Date date = new Date();
         Timestamp t = new Timestamp(date.getTime());
         //修改订单支付状态和时间
@@ -128,8 +143,42 @@ public class IndentController {
         indentDao.set(indent);
         userDao.set(user);
 
-        return "redirect:/toUserSettingPage";
+        return Result.success("200","付款成功","toUserSettingPage");
     }
+
+    @GetMapping("cancelIndent")
+    @ResponseBody
+    public Result cancelIndent(Integer id, HttpSession session){
+        Indent indent = indentDao.showById(id);
+        Date date = new Date();
+        Timestamp t = new Timestamp(date.getTime());
+        if(indent.getOrderStatus() == 0){
+            indent.setOrderStatus(4);
+            indent.setRefundTime(t);
+        }else{
+            int userId = (int) session.getAttribute("userId");
+            //金额退还
+            User user = userDao.showById(userId);
+            user.setMoney(user.getMoney().add(indent.getItemPrice()));
+            userDao.set(user);
+            indent.setOrderStatus(4);
+            indent.setRefundTime(t);
+        }
+        indentDao.set(indent);
+        return Result.success("200","取消成功","toUserSettingPage");
+    }
+    @GetMapping("confirmIndent")
+    @ResponseBody
+    public Result confirmIndent(int id){
+        Indent indent = indentDao.showById(id);
+        Date date = new Date();
+        Timestamp t = new Timestamp(date.getTime());
+        indent.setOrderStatus(3);
+        indent.setRefundTime(t);
+        indentDao.set(indent);
+        return Result.success("200","收货成功","toUserSettingPage");
+    }
+
 
     @GetMapping("toIndentPage")
     public String toIndentPage(HttpSession session,Model model){
@@ -141,7 +190,7 @@ public class IndentController {
             sum=sum.add(list.get(i).getPrice());
         }
         model.addAttribute("list",list);
-        model.addAttribute("address",address);
+        model.addAttribute("Address",address);
         model.addAttribute("sum",sum);
 
         return "IntentForm";
@@ -158,5 +207,17 @@ public class IndentController {
     public String setHasDeliver(int id){
         indentDao.setHasDeliver(id);
         return "redirect:/toNoDeliverIndentTable";
+    }
+
+    @GetMapping("orderDetails")
+    public String orderDetails(int orderId,Model model){
+        List<Indent_Item> indent_item = indentItemDao.getIndentItem(orderId);
+        BigDecimal sum = new BigDecimal(0);
+        for (int i = 0; i < indent_item.size(); i++) {
+            sum=sum.add(indent_item.get(i).getPrice());
+        }
+        model.addAttribute("list",indent_item);
+        model.addAttribute("sum",sum);
+        return "IntentDetail";
     }
 }

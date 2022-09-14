@@ -65,7 +65,7 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">2478</h2>
+									<h2 class="text-white invoice-num" th:text="${itemSum}"></h2>
 									<span class="text-white fs-18">商品总数</span>
 								</div>
 							</div>
@@ -83,7 +83,7 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">983</h2>
+									<h2 class="text-white invoice-num" th:text="${userSum}"></h2>
 									<span class="text-white fs-18">用户数</span>
 								</div>
 							</div>
@@ -101,7 +101,7 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">1256</h2>
+									<h2 class="text-white invoice-num" ></h2>
 									<span class="text-white fs-18">总销量</span>
 								</div>
 							</div>
@@ -117,9 +117,42 @@
 									</svg>
 								</div>
 								<div>
-									<h2 class="text-white invoice-num">652</h2>
-									<span class="text-white fs-18">未发货x</span>
+									<h2 class="text-white invoice-num" th:text="${noDeliverIndentSum}"></h2>
+									<span class="text-white fs-18">未发货</span>
 								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-6">
+						<div class="row  mt-xl-0 mt-4">
+							<div class="col-md-6">
+								<h4 class="card-title">分类占比</h4>
+								<span>了解客户的需求对我们来说非常重要</span>
+								<ul class="card-list mt-4">
+									<li><span class="bg-blue circle"></span>Account<span>3%</span></li>
+									<li><span class="bg-success circle"></span>Services<span>2%</span></li>
+									<li><span class="bg-warning circle"></span>Restaurant<span>80%</span></li>
+									<li><span class="bg-light circle"></span>Others<span>15%</span></li>
+								</ul>
+							</div>
+							<div class="col-md-6">
+								<canvas id="polarChart"></canvas>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-3 col-xxl-6">
+						<div class="card">
+							<div class="card-header pb-0 border-0">
+								<div>
+									<h4 class="card-title mb-2">总收入</h4>
+									<h2 class="mb-0">$78120</h2>
+								</div>
+								<ul class="card-list">
+									<li class="justify-content-end">营收额<span class="bg-success circle me-0 ms-2"></span></li>
+								</ul>
+							</div>
+							<div class="card-body pb-0 pt-3">
+								<div id="chartBar" class="bar-chart"></div>
 							</div>
 						</div>
 					</div>

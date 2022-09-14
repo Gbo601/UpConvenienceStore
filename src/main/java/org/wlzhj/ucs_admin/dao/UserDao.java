@@ -10,6 +10,15 @@ public interface UserDao {
     @Select("select * from user where userName=#{userName} and userPassword=#{userPassword}")
     User login(String userName, String userPassword);
 
+    @Select("select * from user where userName=#{userName}")
+    User getUserByName(String userName);
+
+    @Select("select * from user where phone=#{phone}")
+    User getUserByPhone(String phone);
+
+    @Select("select count(*) from user")
+    int showUserSum();
+
     @Insert("insert into user values (0, #{userName}, #{userPassword}, #{gender}, #{phone}, #{email}, #{avatar}, #{birthday}, #{money}, #{jointime})")
     void add(User user);
 

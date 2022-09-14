@@ -56,8 +56,7 @@
             <div class="container-fluid">
 				<div class="row page-titles">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item active"><a href="javascript:void(0)">Layout</a></li>
-						<li class="breadcrumb-item"><a href="javascript:void(0)">Blank</a></li>
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">订单详情</a></li>
 					</ol>
                 </div>
                 <div class="row">
@@ -65,11 +64,9 @@
 						<div class="col-lg-10">
 
 							<div class="card mt-3">
-								<div class="card-header"> 订单信息 <strong>01/01/01/2018</strong> <span class="float-end">
-                                    <strong>状态:</strong> 待定</span>
+								<div class="card-header"> 订单详情
 								</div>
 								<div class="card-body">
-									<form action="/addIndent" method="post">
 										<div class="row mb-5"></div>
 										<div class="table-responsive">
 											<table class="table table-striped">
@@ -83,31 +80,18 @@
 												</tr>
 												</thead>
 												<tbody>
-												<tr th:each="cart,iter:${list}">
-													<td class="center" th:text="${cart.id}"></td>
-													<td class="left strong" th:text="${cart.itemName}"></td>
-													<td class="right" th:text="${cart.price}"></td>
-													<td class="center" th:text="${cart.number}"></td>
-													<td class="right" th:text="${cart.number}*${cart.price}"></td>
+												<tr th:each="indent_item,iter:${list}">
+													<td class="center" th:text="${indent_item.id}"></td>
+													<td class="left strong" th:text="${indent_item.itemName}"></td>
+													<td class="right" th:text="${indent_item.price}"></td>
+													<td class="center" th:text="${indent_item.number}"></td>
+													<td class="right" th:text="${indent_item.number}*${indent_item.price}"></td>
 												</tr>
-
 												</tbody>
 											</table>
 										</div>
 										<div class="row">
-											<div class="col-lg-8 col-sm-5" th:object="${Address}">
-												<div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12 ">
-													<h6>配送地址</h6>
-													<div >宿舍楼: <strong th:text="${Address.address}"></strong> </div>
-													<div th:text="'昵 称: '+${Address.name}" ></div>
-													<div th:text="'手 机: '+${Address.phone}"></div>
-												</div>
-											</div>
 											<div class="col-lg-4 col-sm-5 ms-auto">
-												<div class="input-group   input-dark">
-													<span class="input-group-text">留言</span>
-													<textarea class="form-control" name="message"></textarea>
-												</div>
 												<table class="table table-clear">
 													<tbody>
 													<tr>
@@ -120,14 +104,14 @@
 											</div>
 										</div>
 										<center>
-											<button type="submit" class="btn btn-primary btn-rounded" >
-												<span class="btn-icon-start text-primary"><i class="fa fa-shopping-cart"></i></span>
-												提交订单
-											</button>
+											<a href="/toUserSettingPage">
+												<button type="submit" class="btn btn-primary btn-rounded" >
+													<span class="btn-icon-start text-primary"><i class="fa fa-shopping-cart"></i></span>
+													返回
+												</button>
+											</a>
+
 										</center>
-									</form>
-
-
 								</div>
 							</div>
 						</div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -83,13 +83,25 @@
 												<span class="input-group-text">商品分类</span>
 												<input type="text" class="form-control" th:value="${item.category}" name="category">
 											</div>
-											<div class="input-group mb-3">
-												<label class="input-group-text mb-0">是否在售</label>
-												<select class="default-select  form-control wide" name="isOnSale">
-													<option th:selected="${item.isOnSale} eq false" th:value="false">否</option>
-													<option th:selected="${item.isOnSale} eq true" th:value="true">是</option>
-												</select>
-											</div>
+											<fieldset class="mb-3">
+												<div class="row">
+													<label class="col-form-label col-sm-3 pt-0">是否在售</label>
+													<div class="col-sm-9">
+														<div class="form-check">
+															<input class="form-check-input" type="radio" name="isOnSale" th:value='true' th:checked="${item.isOnSale} eq true">
+															<label class="form-check-label">
+																是
+															</label>
+														</div>
+														<div class="form-check">
+															<input class="form-check-input" type="radio" name="isOnSale" th:value='false' th:checked="${item.isOnSale} eq false">
+															<label class="form-check-label">
+																否
+															</label>
+														</div>
+													</div>
+												</div>
+											</fieldset>
 
 											<div class="input-group mb-3 input-primary">
 												<span class="input-group-text">商品图片</span>

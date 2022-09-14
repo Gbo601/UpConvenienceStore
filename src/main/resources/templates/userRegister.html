@@ -36,27 +36,25 @@
 										<a href="index.html"><img src="images/logo-full.png" alt=""></a>
 									</div>
                                     <h4 class="text-center mb-4">注册</h4>
-                                    <form action="/userRegister" method="post">
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>用户名</strong></label>
-                                            <input type="text" class="form-control" placeholder="用户名" name="userName">
+                                            <input type="text" class="form-control" placeholder="用户名" id="userName">
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>邮箱</strong></label>
-                                            <input type="email" class="form-control" placeholder="邮箱" name="email">
+                                            <input type="email" class="form-control" placeholder="邮箱" id="email">
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>手机号</strong></label>
-                                            <input type="text" class="form-control" placeholder="手机号" name="phone">
+                                            <input type="text" class="form-control" placeholder="手机号" id="phone">
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>密码</strong></label>
-                                            <input type="password" class="form-control" placeholder="密码" name="userPassword">
+                                            <input type="password" class="form-control" placeholder="密码" id="userPassword">
                                         </div>
                                         <div class="text-center mt-4">
-                                            <button type="submit" class="btn btn-primary btn-block">注册</button>
+                                            <button type="button" class="btn btn-primary btn-block" onclick="Register()">注册</button>
                                         </div>
-                                    </form>
                                     <div class="new-account mt-3">
                                         <p>已经有账号? <a class="text-primary" href="/login">登录</a></p>
                                     </div>
@@ -76,6 +74,37 @@
 <script src="vendor/global/global.min.js"></script>
 <script src="js/custom.min.js"></script>
 <script src="user/js/dlabnav-init.js"></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function Register() {
+            axios.post('/userRegister', {
+                username: document.getElementById("userName").value,
+                password: document.getElementById("userPassword").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value,
+            }).then(function (response) {
+                if(response.data.code === "200"){
+                    swal({
+                        title: response.data.msg,
+                        icon: "success",
+                        button: "好的",
+                    }).then(() =>{
+                        location.href = "login"
+                    });
+                }else{
+                    swal({
+                        title: response.data.msg,
+                        icon: "warning",
+                        button: "好的",
+                    }).then(() => {
+                        // location.href = "toRegisterPage"
+                    });
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    </script>
 </body>
 </html>

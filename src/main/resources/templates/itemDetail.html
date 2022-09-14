@@ -87,7 +87,7 @@
 														<div class="filtaring-area me-3">
 														</div>
 
-														<div class="shopping-cart  mb-2 me-3">
+														<div class="shopping-cart  mb-2 me-3" th:if="${session.userId} != null">
 															<a class="btn btn-primary"  th:href="@{addCart(id=${item.id})}"><i class="fa fa-shopping-basket me-2"></i>加入购物车</a>
 														</div>
 													</div>

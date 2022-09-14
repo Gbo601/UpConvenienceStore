@@ -36,14 +36,13 @@
 										<a href=""><img src="images/logo-full.png" alt=""></a>
 									</div>
                                     <h4 class="text-center mb-4">登录</h4>
-                                    <form action="/userLoginCheck" method="post">
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>用户名</strong></label>
-                                            <input type="text" class="form-control"  name="userName">
+                                            <input type="text" class="form-control"  name="userName" id = "userName">
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>密码</strong></label>
-                                            <input type="password" class="form-control"  name="userPassword">
+                                            <input type="password" class="form-control"  name="userPassword" id="userPassword">
                                         </div>
                                         <div class="row d-flex justify-content-between mt-4 mb-2">
                                             <div class="mb-3">
@@ -54,11 +53,10 @@
                                             </div>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-primary btn-block">登录</button>
+                                            <button type="submit" class="btn btn-primary btn-block" onclick="btnLogin()">登录</button>
                                         </div>
-                                    </form>
                                     <div class="new-account mt-3">
-                                        <p>还没有账号？ <a class="text-primary" href="userRegister.html">注册</a></p>
+                                        <p>还没有账号？ <a class="text-primary" href="toRegisterPage">注册</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -77,6 +75,79 @@
     <script src="vendor/global/global.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="user/js/dlabnav-init.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        var Cookie = {
+            set: function (key, value, exdays) {
+                let exdate = new Date() // 获取时间
+                exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays) // 保存的天数
+                // 字符串拼接cookie
+                // eslint-disable-next-line camelcase
+                window.document.cookie = key + '=' + value + ';path=/;expires=' + exdate.toGMTString()
+            },
+
+            get: function (key) {
+                if (document.cookie.length > 0) {
+                    var arr = document.cookie.split('; ') // 这里显示的格式需要切割一下自己可输出看下
+                    for (let i = 0; i < arr.length; i++) {
+                        let arr2 = arr[i].split('=') // 再次切割
+                        // 判断查找相对应的值
+                        if (arr2[0] === key) {
+                            return arr2[1]
+                        }
+                    }
+                }
+            },
+
+            remove: function (key) {
+                set(key, '', -1);
+            }
+        };
+
+        function btnLogin() {
+            axios.post('/userLoginCheck', {
+                username: document.getElementById("userName").value,
+                password: document.getElementById("userPassword").value,
+            }).then(function (response) {
+                if(response.data.code === "200"){
+                    Cookie.set("token",response.data.data.token,7)
+                    Cookie.set("id",response.data.data.id,7)
+                    Cookie.set("username",response.data.data.username,7)
+                    var request = new XMLHttpRequest();
+
+                    var path="http://127.0.0.1:9088/";
+
+                    request.open("GET", path, true);
+                    request.setRequestHeader("Referer", "http://127.0.0.1:9088/");
+                    request.setRequestHeader("User-Agent", "Mozilla/5.0");
+                    request.setRequestHeader("Accept","application/json");
+                    request.setRequestHeader("Content-Type","application/json");
+                    request.setRequestHeader("Authorization",response.data.data.token);
+                    request.setRequestHeader("Access-Control-Expose-Headers","Authorization");
+                    request.send(null);
+
+                    swal({
+                        title: response.data.msg,
+                        icon: "success",
+                        button: "好的",
+                    }).then(() =>{
+                        location.href = "/toUserIndex"
+                    });
+                }else{
+                    swal({
+                        title: response.data.msg,
+                        icon: "warning",
+                        button: "好的",
+                    }).then(() => {
+                        location.href = "/login"
+                    });
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    </script>
 
 </body>
 </html>

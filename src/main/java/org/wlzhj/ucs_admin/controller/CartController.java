@@ -1,5 +1,6 @@
 package org.wlzhj.ucs_admin.controller;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,7 +63,6 @@ public class CartController {
         model.addAttribute("sum",sum);
         return "cart";
     }
-
     @GetMapping("/deleteCart")
     public String deleteCart(int id){
         cartDao.deleteCart(id);

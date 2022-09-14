@@ -1,21 +1,26 @@
 package org.wlzhj.ucs_admin.controller;
 
+import cn.hutool.core.map.MapUtil;
+
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.wlzhj.ucs_admin.commom.lang.dto.LoginDto;
+import org.wlzhj.ucs_admin.commom.lang.dto.RegisterDto;
+import org.wlzhj.ucs_admin.commom.lang.lang.Result;
 import org.wlzhj.ucs_admin.dao.AdminDao;
 import org.wlzhj.ucs_admin.dao.UserDao;
 import org.wlzhj.ucs_admin.pojo.Admin;
 import org.wlzhj.ucs_admin.pojo.User;
-import org.wlzhj.ucs_admin.utils.TokenUtil;
+import org.wlzhj.ucs_admin.utils.JwtUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -25,6 +30,7 @@ import java.util.Date;
  * @Date: 2022-2022/8/31 18:12
  * @Description: TODO
  */
+@CrossOrigin
 @Controller
 public class AccountController {
     @Resource
@@ -32,72 +38,114 @@ public class AccountController {
 
     @Resource
     UserDao userDao;
-    @Autowired
-    TokenUtil tokenUtil;
 
-    @GetMapping("/login")
-    public String toLoginPage(){
-        return "userLogin";
-    }
+    @Autowired
+    JwtUtils jwtUtils;
+
+
 
     @GetMapping("/adminLogin")
     public String toAdminLoginPage(){
         return "adminLogin";
     }
+
+
     @PostMapping("/adminLoginCheck")
-    public String adminLoginCheck(String adminName, String adminPassword ,HttpServletResponse response,HttpServletRequest request,HttpSession session){
-        Admin admin = adminDao.adminLogin(adminName,adminPassword);
-        if(admin != null){
-            String token = tokenUtil.generateToken(admin);
-            Cookie cookie = new Cookie("token", token);
-            cookie.setPath("/x ");
-            response.addCookie(cookie);
-            session.setAttribute("adminName",admin.getAdminName());
-            session.setAttribute("adminId",admin.getId());
-            return "index";
+    @ResponseBody
+    public Result adminLoginCheck(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response, HttpSession session) {
+        Admin admin = adminDao.getAdminByName(loginDto.getUsername());
+        if(admin == null){
+            return Result.fail("400","无此用户","adminLogin");
+        }else if(!admin.getAdminPassword().equals(loginDto.getPassword())){
+            return Result.fail("400","密码错误","adminLogin");
         }else{
-            return "adminLogin";
+            String jwt = jwtUtils.generateToken(admin.getId());
+
+            response.setHeader("Authorization", jwt);
+            response.setHeader("Access-Control-Expose-Headers", "Authorization");
+            session.setAttribute("username",admin.getAdminName());
+            session.setAttribute("id",admin.getId());
+
+            return Result.success("200","登录成功！",MapUtil.builder()
+                    .put("id",admin.getId())
+                    .put("username",admin.getAdminName())
+                    .put("token",jwt)
+                    .map());
         }
     }
 
+    @GetMapping("/logoutAdmin")
+    public String logoutAdmin(){
+        SecurityUtils.getSubject().logout();
+        return "adminLogin";
+    }
+    @GetMapping("/login")
+    public String toLoginPage(){
+        return "userLogin";
+    }
 
     @PostMapping("/userLoginCheck")
-    public String userLoginCheck(String userName, String userPassword , HttpServletResponse response, HttpServletRequest request, HttpSession session){
-        User user = userDao.login(userName,userPassword);
-        if(user != null){
-            String token = tokenUtil.generateToken(user);
-            Cookie cookie = new Cookie("token", token);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            session.setAttribute("userId",user.getId());
-            session.setAttribute("userName",user.getUserName());
-
-            return "redirect:/toUserIndex";
+    @ResponseBody
+    public Result userLoginCheck(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response, HttpSession session){
+        User user = userDao.getUserByName(loginDto.getUsername());
+        if(user == null){
+            return Result.fail("400","无此用户","login");
+        }else if(!user.getUserPassword().equals(loginDto.getPassword())){
+            return Result.fail("400","密码错误","login");
         }else{
-            return "userLogin";
+            String jwt = jwtUtils.generateToken(user.getId());
+
+            response.setHeader("Authorization", jwt);
+            response.setHeader("Access-Control-Expose-Headers", "Authorization");
+            session.setAttribute("username",user.getUserName());
+            session.setAttribute("userId",user.getId());
+
+            return Result.success("200","登录成功！",MapUtil.builder()
+                    .put("id",user.getId())
+                    .put("username",user.getUserName())
+                    .put("token",jwt)
+                    .map());
         }
+    }
+
+    @GetMapping("/toRegisterPage")
+    public String toRegisterPage(){
+        return "userRegister";
     }
 
     @PostMapping("/userRegister")
-    public String userRegister(User user,HttpServletResponse response,HttpServletRequest request){
+    @ResponseBody
+    public Result userRegister(@Validated @RequestBody RegisterDto registerDto){
+        User user1 = userDao.getUserByName(registerDto.getUsername());
+        User user2 = userDao.getUserByPhone(registerDto.getPhone());
+        User user = new User();
+        if(user1 != null){
+            return Result.fail("400","该用户名已被注册","login");
+        }
+        if(user2 != null){
+            return Result.fail("400","该手机号已被注册","login");
+        }
+
         Date date = new Date();
         Timestamp t = new Timestamp(date.getTime());
+
         user.setJointime(t);
-        System.out.println(user);
+        user.setUserName(registerDto.getUsername());
+        user.setUserPassword(registerDto.getPassword());
+        user.setEmail(registerDto.getEmail());
+        user.setPhone(registerDto.getPhone());
+        user.setMoney(BigDecimal.ZERO);
+
         userDao.add(user);
-        return "userLogin";
-    }
-    @GetMapping("/logoutAdmin")
-    public String logoutAdmin(HttpServletResponse response){
-        Cookie cookie = new Cookie("token", null);
-        response.addCookie(cookie);
-        return "adminLogin";
+        return Result.success("200","注册成功","login");
+
     }
 
     @GetMapping("/logoutUser")
-    public String logoutUser(HttpServletResponse response){
-        Cookie cookie = new Cookie("token", null);
-        response.addCookie(cookie);
-        return "redirect:/toUserIndex";
+    public String logoutUser(){
+        SecurityUtils.getSubject().logout();
+        return "redirect:/login";
     }
+
+
 }

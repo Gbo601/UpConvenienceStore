@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.wlzhj.ucs_admin.commom.lang.lang.Result;
 import org.wlzhj.ucs_admin.dao.AddressDao;
 import org.wlzhj.ucs_admin.dao.IndentDao;
 import org.wlzhj.ucs_admin.dao.ItemDao;
@@ -14,7 +17,11 @@ import org.wlzhj.ucs_admin.pojo.Item;
 import org.wlzhj.ucs_admin.pojo.User;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +40,14 @@ public class UserController {
     @Resource
     IndentDao indentDao;
 
+    @Resource
+    UserDao userDao;
+
+
+    @RequestMapping("/")
+    public String index(){
+        return "redirect:/toUserIndex";
+    }
     @PostMapping ("addUser")
     public String add(User user){//增加信息
         Date date = new Date();
@@ -104,4 +119,24 @@ public class UserController {
     public String toAbout(){
         return "about";
     }
+
+    @GetMapping("recharge")
+    @ResponseBody
+    public Result recharge(int userId,BigDecimal money){
+        User user = userDao.showById(userId);
+        user.setMoney(user.getMoney().add(money));
+        usersDao.set(user);
+        return Result.success("200","充值成功","toUserSettingPage");
+    }
+
+    @GetMapping("withdraw")
+    @ResponseBody
+    public Result withdraw(int userId,BigDecimal money){
+        User user = userDao.showById(userId);
+        user.setMoney(user.getMoney().subtract(money));
+        usersDao.set(user);
+        return Result.success("200","提现成功","toUserSettingPage");
+    }
+
+
 }

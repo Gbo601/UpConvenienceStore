@@ -93,8 +93,8 @@
 														</select>
 													</div>
 													<div class="mb-3">
-														<a th:href="@{toCheck(id=${indent.id})}">
-															<button type="button" class="btn btn-primary btn-rounded" onclick="showCheckSucc()">
+														<a onclick="toCheck(this.getAttribute('indent_id'))"  th:indent_id="${indent.id}">
+															<button type="button" class="btn btn-primary btn-rounded">
 																<span class="btn-icon-start text-primary"><i class="fa fa-shopping-cart"></i></span>
 																支付
 															</button>
@@ -147,8 +147,36 @@
 
     <script src="./js/custom.min.js"></script>
 	<script src="./user/js/dlabnav-init.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
+		function toCheck(IndentId) {
+			var indentID = Number(IndentId)
+			axios.get('/toCheck', {
+				params: {
+					id: indentID,
+				}
+			}).then(function (response) {
+				if(response.data.code === "400"){
+					swal({
+						title: response.data.msg,
+						icon: "warning",
+						button: "好的",
+					});
+				}else{
+					swal({
+						title: response.data.msg,
+						icon: "success",
+						button: "好的",
+					}).then(() =>{
+						location.href = response.data.data
+					});
+				}
+
+			}).catch(function (error) {
+				console.log(error);
+			});
+		}
 		// function showCheckSucc(){
 		// 	swal({
 		// 		title: "你已完成支付",

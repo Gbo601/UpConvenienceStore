@@ -3,7 +3,7 @@ spring:
     username: root
     password: "010712"
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://124.223.25.67:3306/ucs
+    url: jdbc:mysql://127.0.0.1:3306/ucs
   web:
     resources:
       static-locations: classpath:/templates
@@ -32,3 +32,16 @@ server:
 mybatis:
   configuration:
     call-setters-on-nulls: true
+
+shiro-readis:
+  enabled: true
+  redis-mapper:
+    host: 127.0.0.1:6379
+
+gbo601:
+  jwt:
+    #加密密钥
+    secret: f4e2e52034348f86b67cde581c0f9eb5
+    #有效期七天,秒为单位
+    expire: 604800
+    header: Authorization
